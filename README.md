@@ -71,6 +71,20 @@
             console.log(typof b) // return number
         ```
         * 1 reference data type: object
+    * using typeof funciton 
+        return 9 results: 
+| Type   | Result |
+| ------ | ------ |
+| Undefined | undefined |
+| Null      | object    |
+| Boolean   | boolean   |
+| Number    | number    |
+| BigInt    | bigint    |
+| String    | string    |
+| Symbol    | symbol    |
+| Function  | function  |
+| other obj | object    |
+
     * dynamically-typed languages && weak typing languages
         * belongs to dynamically-typed languages （like python, JS，php）->  checking takes place while the program runs(run-time), no need to specify the data type of each variable while writting code.
     * void 0 -> operator evaluates the given expression and then return undefined;
@@ -209,4 +223,100 @@
         * you need to understand function declaration and function expression.
         * anonymous function 
 
-6. 
+6. constructor
+    ```
+    // build a constructor named Person
+        function Person(identity) {
+            this.identity = identity || 'Person'
+        }
+
+    // build instance by using wrapping function
+        function _new(Fuc) {
+            return function() {
+                const obj = {
+                    _proto_ = Fuc.prototype
+                }
+
+                Fuc.apply(obj, arguments)
+                return obj
+            }
+        }
+
+
+    // test
+        const obj = _new(Person)('son')
+        console.log(obj.constructor) // output [function: Person]
+        console.log(obj.idetity) // son
+    ```
+
+7. class 
+    * class can have both proporty and method, and it also supports inheritance 
+    * ES6 vs. ES7
+        * Properties are like "variable attachted to classes / objects"
+            ```
+                for ES6:
+                constructor() {
+                    this.myProperty = "value";
+                }
+
+                for ES7:
+                myProperty = "value";
+            ```
+        * Mehtods are like "functions attaced to classes/objects"
+            ```
+                for ES6: 
+                myMethod() {...}
+
+                for ES7
+                myMethod = () => {...}
+            ```
+    ```
+        class Cat {
+            constructor() {
+                this.color = "white";
+            }
+
+            printColor() {
+                console.log(this.color);
+            }
+        }
+
+        class Kitty extends Cat {
+            constructor() {
+                super();
+                this.age = "2 months";
+            }
+
+            printAge() {
+                consolo.log(this.age);
+            }
+        }
+
+        const kitty = new Kitty();
+        consolo.log(kitty.printColor()) // white
+        console.log(kitty.printAge())  // 2 months
+    ```
+    
+
+8. spread & rest operator (...)
+    > spread & rest operator => ...
+    * Spread: used to split up array ele or object properites
+        ```
+            const newArray = [...oldArray, 1, 2];
+            const newObject = {
+                ...oldjObje,
+                newProp: 5
+            }
+        ```
+    * rest: used to merge a list of function arguments into an array
+        ```
+            funciotion sortArgs(...args) {
+                return args.sort()
+            }
+
+            e.g. 
+            const filter = (...args) => {
+                return args.filter(el => el === 1);
+            }
+            console.log(filter(1,2,3));
+        ```
